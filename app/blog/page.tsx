@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { allBlogs } from 'contentlayer/generated';
+import { allBlogs } from 'contentlayer2/generated';
 import ViewCounter from './view-counter';
 import { getViewsCount } from 'lib/metrics';
 

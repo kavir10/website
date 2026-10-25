@@ -1,15 +1,14 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Mdx } from 'app/components/mdx';
-import { allBlogs } from 'contentlayer/generated';
+import { allBlogs } from 'contentlayer2/generated';
 import Balancer from 'react-wrap-balancer';
 import ViewCounter from '../view-counter';
 import { getViewsCount } from 'lib/metrics';
 import { Suspense } from 'react';
 
-export async function generateMetadata({
-  params,
-}): Promise<Metadata | undefined> {
+export async function generateMetadata(props): Promise<Metadata | undefined> {
+  const params = await props.params;
   const post = allBlogs.find((post) => post.slug === params.slug);
   if (!post) {
     return;
@@ -79,7 +78,8 @@ function formatDate(date: string) {
   return `${fullDate} (${formattedDate})`;
 }
 
-export default async function Blog({ params }) {
+export default async function Blog(props) {
+  const params = await props.params;
   const post = allBlogs.find((post) => post.slug === params.slug);
 
   if (!post) {
